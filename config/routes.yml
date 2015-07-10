@@ -1,0 +1,11 @@
+routes:
+
+    home:
+        path: /
+        controller: \SlimAPI\Controllers\HomeController:index
+
+    product:
+        method: [get, post]
+        path: /product/:id
+        controller: \SlimAPI\Controllers\HomeController:product
+        conditions: { id: \d+ }

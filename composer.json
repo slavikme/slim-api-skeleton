@@ -1,0 +1,14 @@
+{
+    "require": {
+        "slim/pdo": "~1.6",
+        "techsterx/slim-config-yaml": "1.*",
+        "entomb/slim-json-api": "dev-master",
+        "needcaffeine/slim-api-extras": "^1.0",
+        "slimcontroller/slimcontroller": "0.4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "SlimAPI\\": "app"
+        }
+    }
+}

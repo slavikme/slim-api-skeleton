@@ -1,0 +1,11 @@
+parameters:
+    debug:      true
+
+    db.driver:  mysql
+    db.host:    localhost
+    db.user:    root
+    db.pass:    ''
+    db.name:    dbase
+
+    cookie.secret: Change This To A Random String
+    cookie.lifetime: 20 minutes
