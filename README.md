@@ -25,5 +25,3 @@ Contributions are welcomed.
 5. Add logging
 6. Add Caching mechanism
 
-## Based Libraries
-
