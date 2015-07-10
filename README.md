@@ -14,7 +14,7 @@ Contributions are welcomed.
   * Define conditions to parameters
 * Controller classes support
   
-## TDOD
+## TODO
 1. Create a composer project generation configurations
 2. Add Relational Database support
 3. Add authentication support based on API key with the following user information sources
