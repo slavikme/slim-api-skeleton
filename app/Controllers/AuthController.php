@@ -53,7 +53,7 @@ class AuthController extends SlimController {
         }
 
         $pdo->update(array("lastlogin_time"=>gmdate("Y-m-d H:i:s")))
-            ->table("extui_user")
+            ->table("tbl_user")
             ->where("id", "=", $user["id"])
             ->execute();
 
