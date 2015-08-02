@@ -36,7 +36,7 @@ Complete this section
 ## Database 
 ### User Table
 
-    CREATE TABLE `extui_user` (
+    CREATE TABLE `tbl_user` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `username` varchar(50) NOT NULL,
         `password` varchar(255) NOT NULL,
