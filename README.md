@@ -9,19 +9,19 @@ Contributions are welcomed.
 * Application configuration in a single file
 * Relational Database support
 * Authentication support based on API key with the following user information sources
-..* From relational database
+  * From relational database
 * Routing settings in a single file
-..* Define an HTTP Method or array of methods
-..* Route with parameters
-..* Controller class and class method
-..* Define conditions to parameters
+  * Define an HTTP Method or array of methods
+  * Route with parameters
+  * Controller class and class method
+  * Define conditions to parameters
 * Controller classes support
   
 ## TODO
 1. Create a composer project generation configurations
 2. Add authentication support based on API key with the following user information sources
-..1. From Configuration File
-..2. From Big Data/NoSQL records
+  1. From Configuration File
+  2. From Big Data/NoSQL records
 3. Add authorization support
 4. Add logging
 5. Add Caching mechanism
