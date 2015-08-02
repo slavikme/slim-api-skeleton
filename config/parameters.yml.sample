@@ -5,7 +5,20 @@ parameters:
     db.host:    localhost
     db.user:    root
     db.pass:    ''
-    db.name:    dbase
+    db.name:    dbname
 
-    cookie.secret: Change This To A Random String
-    cookie.lifetime: 20 minutes
+    auth.secure: true
+    auth.relaxed: [localhost, slimapi.local, 127.0.0.1]
+    auth.lifetime: 20 minutes
+    auth.secret: >
+        Change This
+        Multiple Line String
+        Just Generate One On
+        http://www.unit-conversion.info/texttools/random-string-generator/
+        With The Following Recommended Value
+        To Maximize The Security
+        Allowed chars:      abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+        Number of strings:  16
+        Length:             64
+        Then Paste the Result Here
+        With The Same Indentation

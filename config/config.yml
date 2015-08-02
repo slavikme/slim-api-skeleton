@@ -15,15 +15,13 @@ databases:
         collation: utf8_general_ci
         prefix: ''
 
-cookies.encrypt: true
-cookies.lifetime: %cookie.lifetime%
-cookies.path: /
-cookies.domain:
-cookies.secure: false
-cookies.httponly: false
-cookies.secret_key: %cookie.secret%
-cookies.cookies.cipher: rijndael-256
-cookies.cipher_mode: cbc
+auth:
+    secure: %auth.secure%
+    secret: %auth.secret%
+    relaxed: %auth.relaxed%
+    passthrough: [ /auth ]
+    lifetime: %auth.lifetime%
+
 
 controller.class_prefix:
 controller.method_suffix: Action

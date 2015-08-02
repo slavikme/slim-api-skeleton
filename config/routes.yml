@@ -4,8 +4,13 @@ routes:
         path: /
         controller: \SlimAPI\Controllers\HomeController:index
 
+    login:
+        method: post
+        path: /auth
+        controller: \SlimAPI\Controllers\AuthController:login
+
     product:
-        method: [get, post]
+        method: [get, post, put, delete]
         path: /product/:id
-        controller: \SlimAPI\Controllers\HomeController:product
+        controller: \SlimAPI\Controllers\ProductController:get
         conditions: { id: \d+ }
