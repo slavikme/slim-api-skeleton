@@ -40,7 +40,7 @@ class AuthController extends SlimController {
          */
         $pdo = $this->app->getPDOConnection();
         $user = $pdo->select()
-            ->from("extui_user")
+            ->from("tbl_user")
             ->where("username", "=", $username)
             ->where("password", "=", sha1($password))
             ->where("status", ">", 0)
