@@ -1,4 +1,6 @@
 {
+    "name": "slavikme/slim-api-skeleton",
+    "version": "0.9.0",
     "require": {
         "slim/pdo": "dev-master",
         "techsterx/slim-config-yaml": "1.*",
