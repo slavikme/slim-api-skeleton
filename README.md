@@ -20,13 +20,13 @@ Contributions are welcomed.
   
 ## TODO
 
- 2. Add authentication support based on API key with the following user information sources
+ 1. Add authentication support based on API key with the following user information sources
    1. From Configuration File
    2. From Big Data/NoSQL records
- 3. Add authorization support
- 4. Add logging
- 5. Add Caching mechanism
- 6. Auto-doc generator
+ 2. Add authorization support
+ 3. Add logging
+ 4. Add Caching mechanism
+ 5. Auto-doc generator
 
 ## Recommendations
 It is strongly recommended to install this framework on UNIX-based operating systems (Linux or Macintosh), as it is much easier and much faster to make everything work smoothly.  
