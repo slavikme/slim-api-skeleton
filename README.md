@@ -53,8 +53,8 @@ The request body should be sent as follow:
     username=john&password=Snow123&remember_minutes=1440
     
 ##### Request Parameters
- * **`username`** - The username from the `tbl_user` table (See in the [Database - User Table](#user-table) section).
- * **`password`** - The username from the `tbl_user` table (See in the [Database - User Table](#user-table) section).
+ * **`username`** - The username from the `tbl_user` table (See the [Database - User Table](#user-table) section).
+ * **`password`** - The username from the `tbl_user` table (See the [Database - User Table](#user-table) section).
  * **`remember_minutes`** - The number of minutes to create a valid token for. This parameter is optional and may not be sent. If this parameter will not be sent, the default value will be used as defined within the ``auth.lifetime`` property located in ``config/parameters.yml`` file.
 
 #### Response
@@ -79,7 +79,7 @@ Otherwise, the authentication should succeed with the response status code 200 a
  * **`status`** - The status of the response, mostly is the response status code. Always included in the response.
  * **`error`** - Indicates whether an error has occurred for any possible reason. This will return `true` on error along with `msg` parameter, otherwise will return `false`. Always included in the response.
  * **`msg`** - A string that explains why the error has been occurred. Should always be included if `error` is `true`.
- * **`token`** - A valid JWT authentication token, used for authenticated request in this API (Usage explained in the (Request - Authenticated Usage)[#authenticated-usage] section).
+ * **`token`** - A valid JWT authentication token, used for authenticated requests in this API (Usage explained in the [Request - Authenticated Usage](#authenticated-usage) section).
 
 #### Authenticated Usage
 **TODO:** Complete this section
