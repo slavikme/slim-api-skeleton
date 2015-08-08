@@ -46,7 +46,7 @@ The request body should be sent as follow:
         "remember_minutes": 1440
     }
     
-> Note: JSON format requests must be sent along with the `Content-Type: application/json` in the request headers in order to make it work.
+> Note: JSON format requests must be sent along with the `Content-Type: application/json` header property in the request headers in order to make it work.
     
 ##### Form Format
 
