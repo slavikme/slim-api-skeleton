@@ -6,7 +6,8 @@ debug: %debug%
 databases:
     default:
         driver: %db.driver%
-        hostname: %db.host%:%db.port%
+        hostname: %db.host%
+        port: %db.port%
         username: %db.user%
         password: %db.pass%
         database: %db.name%

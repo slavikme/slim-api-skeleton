@@ -253,12 +253,13 @@ class Factory extends Slim
 
         $driver = $dbconf["driver"];
         $host = $dbconf["hostname"];
+        $port = $dbconf["port"];
         $user = $dbconf["username"];
         $pass = $dbconf["password"];
         $dbname = $dbconf["database"];
         $charset = $dbconf["charset"];
 
-        $dsn = "$driver:host=$host;dbname=$dbname;charset=$charset";
+        $dsn = "$driver:host=$host;port=$port;dbname=$dbname;charset=$charset";
         return new Database($dsn, $user, $pass);
     }
 
