@@ -3,7 +3,6 @@
 namespace SlimAPI;
 
 use BurningDiode\Slim\Config\Yaml;
-use Slim\Middleware\HttpBasicAuthentication;
 use Slim\Middleware\JwtAuthentication;
 use Slim\PDO\Database;
 use SlimController\Slim;
@@ -187,11 +186,16 @@ class Factory extends Slim
         $auth["rules"] = array(
             new JwtAuthentication\RequestPathRule(array(
                 "passthrough" => $auth["passthrough"],
-            ))
+            )),
+            new JwtAuthentication\RequestMethodRule(array(
+                "passthrough" => ["OPTIONS"],
+            )),
         );
         $auth["callback"] = function($arguments) use ($auth) {
-            $auth_time = $arguments["decoded"]->time;
-            if ( strtotime($auth["lifetime"],$auth_time) < time() ) {
+            $sess_data = $arguments["decoded"];
+            $auth_time = $sess_data->time;
+            $remember = empty($sess_data->remember) ? $auth["lifetime"] : ($sess_data->remember . " minutes");
+            if ( strtotime($remember,$auth_time) < time() ) {
                 return false;
             }
             $this->setAuthData($arguments["decoded"]);
@@ -275,15 +279,17 @@ class Factory extends Slim
 
     /**
      * @param array $user_data
+     * @param int $remember_minutes
      * @return array|null
      */
-    public static function createAuthData(array $user_data)
+    public static function createAuthData(array $user_data, $remember_minutes = null)
     {
         if ( empty($user_data) ) {
             return null;
         }
         return array(
             "time" => time(),
+            "remember" => $remember_minutes,
             "user" => array_intersect_key(
                 $user_data,
                 array_flip(array("id","username","name","role","email","status","lastlogin_time"))
@@ -301,7 +307,11 @@ class Factory extends Slim
         if ( empty($user_data) && $this->isAuthenticated() ) {
             $user_data = $this->getAuthData()["user"];
         }
-        $auth_data = self::createAuthData($user_data);
+        $remember_minutes = null;
+        if ( $this->isAuthenticated() ) {
+            $remember_minutes = $this->getAuthData()["remember_minutes"];
+        }
+        $auth_data = self::createAuthData($user_data, $remember_minutes);
         $token = \JWT::encode($auth_data, $this->getConfig("auth")["secret"]);
         if ( $is_save ) {
             $this->setAuthData($auth_data);

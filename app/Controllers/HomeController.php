@@ -6,6 +6,11 @@ use SlimController\SlimController;
 
 class HomeController extends SlimController {
 
+    public function __optionsAction()
+    {
+        $this->render(200);
+    }
+
     public function indexAction() {
 
         $pdo = $this->app->getPDOConnection();

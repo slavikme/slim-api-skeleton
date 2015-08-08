@@ -17,22 +17,27 @@ class AuthController extends SlimController {
     public function loginAction() {
         // You can use the authentication data stored in $auth variable
         $auth = $this->app->container["settings"]["auth"];
-
         $request = $this->app->request;
+        $remember = null;
         if ( $request->isFormData() ) {
             $username = $request->post("username");
             $password = $request->post("password");
+            $remember = $request->post("remember_minutes", null);
         }
-        if ( strtolower($request->getContentType()) == "application/json" ) {
+        if ( preg_match("/^application\\/json/i", $request->getContentType()) ) {
             $json = json_decode($request->getBody(), true);
             if ( $json !== NULL ) {
                 $username = $json["username"];
                 $password = $json["password"];
+                $remember = $json["remember_minutes"];
             }
         }
         if ( empty($username) || empty($password) ) {
             $this->renderUnauthorized();
             return;
+        }
+        if ( !is_numeric($remember) || $remember < 1 ) {
+            $remember = null;
         }
 
         /**
@@ -57,7 +62,7 @@ class AuthController extends SlimController {
             ->where("id", "=", $user["id"])
             ->execute();
 
-        $this->app->setAuthData(Factory::createAuthData($user));
+        $this->app->setAuthData(Factory::createAuthData($user), $remember);
 
         $this->render(200);
     }

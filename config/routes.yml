@@ -1,5 +1,10 @@
 routes:
 
+    __options:
+        method: options
+        path: /(:path+)
+        controller: \SlimAPI\Controllers\HomeController:__options
+
     home:
         path: /
         controller: \SlimAPI\Controllers\HomeController:index
