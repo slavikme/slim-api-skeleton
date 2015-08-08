@@ -21,7 +21,8 @@
         "slimcontroller/slimcontroller": "0.4.3",
         "slim/slim-skeleton": "2.*",
         "tuupola/slim-jwt-auth": "^0.3.0",
-        "wp-cli/php-cli-tools": "^0.10.4"
+        "wp-cli/php-cli-tools": "^0.10.4",
+        "incenteev/composer-parameter-handler": "~2.0"
     },
     "autoload": {
         "psr-4": {
@@ -29,7 +30,10 @@
         }
     },
     "scripts": {
-        "post-create-project-cmd": [
+        "post-install-cmd": [
+            "SlimAPI\\Composer::postCreateProjectInstall"
+        ],
+        "post-update-cmd": [
             "SlimAPI\\Composer::postCreateProjectInstall"
         ]
     }

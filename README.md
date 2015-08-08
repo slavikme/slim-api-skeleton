@@ -27,17 +27,42 @@ Contributions are welcomed.
 5. Add Caching mechanism
 6. Auto-doc generator
 
+## Recommendations
+It is strongly recommended to install this framework on UNIX-based operating systems (Linux or Macintosh), as it is much easier and much faster to make everything work smoothly.  
+Of course you can make it work on Windows, but I would recommend to save your valuable time and prevent unnecessary headache.  
+In this documentation, I will explain how to make it work on UNIX-based system and not on Windows. If you still want to install it on Windows, I'm sorry, but you'll have to figure it out by yourself.  
+Note: You can always [run a VM (Virtual Machine) with a Linux](http://www.howtogeek.com/196060/beginner-geek-how-to-create-and-use-virtual-machines/), using a [VirtualBox](https://www.virtualbox.org/) or any [other virtual machine](http://lifehacker.com/5714966/five-best-virtual-machine-applications) to install a Linux OS. And then proceed with this documentation on your newly installed Linux on your VM.
+
+## Requirements
+
+ * **Apache 2.x** (or if you prefer Nginx, you will have to make sure that the Authorization header is passed in to your PHP application as described in the `public/.htaccess` file. Also, you should rewrite everything to point to the `public/app.php` file)
+ * **PHP 5.6+**
+ * **MySQL 5.5+**
+ * **Composer 0.9+** ([installation instructions](https://getcomposer.org/doc/00-intro.md))
+
 ## Installation
-Complete this section
+**INCOMPLETE!**
+
+ 1. Open a command line interface.
+ 2. Navigate to the path where you want to create the project directory.
+ 3. Run the following command:
+     
+     composer create-project slavikme/slim-api-skeleton
+     
+ 4. Follow the instructions.
+ 5. Create a Virtual Host with the hostname `slimapi.local` and point the base directory to the `public` directory.
 
 ## Usage
-Complete this section
+**INCOMPLETE!**
+
 ### Authentication
-The authentication method implemented in this framework is [JWT (JSON Web Tokens)](http://jwt.io/).
+The authentication method implemented in this framework is [JWT (JSON Web Tokens)](http://jwt.io/).  
 A special authentication route has been implemented and is ready to use out of the box.
+
 #### Request
-Use the route `/auth` with the method `POST` to authenticate by sending mandatory credentials `username` and `password`, and optional credential `remember_minutes` in the body of the request wrapped in form or JSON formats (both are supported equally).
-The request body should be sent as follow:
+Use the route `/auth` with the method `POST` to authenticate by sending mandatory credentials `username` and `password`, and optional credential `remember_minutes` in the body of the request wrapped in form or JSON formats (both are supported equally).  
+The request body should be sent as follows:
+
 ##### JSON Format
 
     {
@@ -84,8 +109,9 @@ Otherwise, the authentication should succeed with the response status code 200 a
 #### Authenticated Usage
 **TODO:** Complete this section
 
-## Database 
+## Database
 ### User Table
+The following code used to create a new user table manually.  
 
     CREATE TABLE `tbl_user` (
         `id` int(11) NOT NULL AUTO_INCREMENT,
