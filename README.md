@@ -6,26 +6,27 @@ A skeleton project based on Slim Framework 2 to start developing API application
 Contributions are welcomed.
 
 ## Implemented
-* Application configuration in a single file
-* Relational Database support
-* Authentication support based on API key with the following user information sources
-  * From relational database
-* Routing settings in a single file
-  * Define an HTTP Method or array of methods
-  * Route with parameters
-  * Controller class and class method
-  * Define conditions to parameters
-* Controller classes support
+
+ * Application configuration in a single file
+ * Relational Database support
+ * Authentication support based on API key with the following user information sources
+   * From relational database
+ * Routing settings in a single file
+   * Define an HTTP Method or array of methods
+   * Route with parameters
+   * Controller class and class method
+   * Define conditions to parameters
+ * Controller classes support
   
 ## TODO
-1. Create a composer project generation configurations
-2. Add authentication support based on API key with the following user information sources
-  1. From Configuration File
-  2. From Big Data/NoSQL records
-3. Add authorization support
-4. Add logging
-5. Add Caching mechanism
-6. Auto-doc generator
+
+ 2. Add authentication support based on API key with the following user information sources
+   1. From Configuration File
+   2. From Big Data/NoSQL records
+ 3. Add authorization support
+ 4. Add logging
+ 5. Add Caching mechanism
+ 6. Auto-doc generator
 
 ## Recommendations
 It is strongly recommended to install this framework on UNIX-based operating systems (Linux or Macintosh), as it is much easier and much faster to make everything work smoothly.  
@@ -47,7 +48,7 @@ Note: You can always [run a VM (Virtual Machine) with a Linux](http://www.howtog
  2. Navigate to the path where you want to create the project directory.
  3. Run the following command:
      
-     composer create-project slavikme/slim-api-skeleton
+        composer create-project slavikme/slim-api-skeleton
      
  4. Follow the instructions.
  5. Create a Virtual Host with the hostname `slimapi.local` and point the base directory to the `public` directory.
