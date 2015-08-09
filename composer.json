@@ -1,6 +1,6 @@
 {
     "name": "slavikme/slim-api-skeleton",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "description": "A skeleton project based on Slim Framework 2. Start developing API applications instantly.",
     "license": "MIT",
     "type": "project",
