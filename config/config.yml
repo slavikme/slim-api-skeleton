@@ -22,6 +22,7 @@ auth:
     relaxed: %auth.relaxed%
     passthrough: [ /auth ]
     lifetime: %auth.lifetime%
+    maxlifetime: %auth.maxlifetime%
 
 
 controller.class_prefix:

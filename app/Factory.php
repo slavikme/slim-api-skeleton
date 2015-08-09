@@ -183,22 +183,20 @@ class Factory extends Slim
 
         // Authorization
         $auth = $this->getConfig("auth");
-        $auth["rules"] = array(
-            new JwtAuthentication\RequestPathRule(array(
+        $auth["rules"] = [
+            new JwtAuthentication\RequestPathRule([
                 "passthrough" => $auth["passthrough"],
-            )),
-            new JwtAuthentication\RequestMethodRule(array(
+            ]),
+            new JwtAuthentication\RequestMethodRule([
                 "passthrough" => ["OPTIONS"],
-            )),
-        );
-        $auth["callback"] = function($arguments) use ($auth) {
-            $sess_data = $arguments["decoded"];
-            $auth_time = $sess_data->time;
-            $remember = empty($sess_data->remember) ? $auth["lifetime"] : ($sess_data->remember . " minutes");
-            if ( strtotime($remember,$auth_time) < time() ) {
+            ]),
+        ];
+        $auth["callback"] = function($arguments) {
+            $token_data = $arguments["decoded"];
+            if ( $token_data->exptime < time() ) {
                 return false;
             }
-            $this->setAuthData($arguments["decoded"]);
+            $this->setAuthData($token_data);
         };
         return $auth;
     }
@@ -270,9 +268,9 @@ class Factory extends Slim
                 $pdo = $this->createDatabaseInstance();
                 self::$pdo = $pdo;
             } catch (\PDOException $e) {
-                $this->render(500, array(
+                $this->render(500, [
                     "msg" => $e->getMessage()
-                ));
+                ]);
             }
         }
         return self::$pdo;
@@ -280,20 +278,21 @@ class Factory extends Slim
 
     /**
      * @param array $user_data
-     * @param int $remember_minutes
+     * @param int $exptime The expiration timestamp of the token.
      * @return array|null
      */
-    public static function createAuthData(array $user_data, $remember_minutes = null)
+    public static function createAuthData(array $user_data, $exptime)
     {
-        if ( empty($user_data) ) {
+        $now = time();
+        if ( empty($user_data) || !is_numeric($exptime) || $exptime < $now ) {
             return null;
         }
         return array(
-            "time" => time(),
-            "remember" => $remember_minutes,
+            "time" => $now,
+            "exptime" => $exptime,
             "user" => array_intersect_key(
                 $user_data,
-                array_flip(array("id","username","name","role","email","status","lastlogin_time"))
+                array_flip(["id","username","name","role","email","status","lastlogin_time"])
             ),
         );
     }
@@ -305,14 +304,16 @@ class Factory extends Slim
      */
     public function generateToken(array $user_data = null, $is_save = false)
     {
-        if ( empty($user_data) && $this->isAuthenticated() ) {
-            $user_data = $this->getAuthData()["user"];
+        if ( $this->isAuthenticated() )
+        {
+            if ( empty($user_data) ) {
+                $user_data = $this->getAuthData()["user"];
+            }
+            $exptime = $this->getAuthData()["exptime"];
+        } else {
+            $exptime = strtotime($this->getConfig("auth")["lifetime"]);
         }
-        $remember_minutes = null;
-        if ( $this->isAuthenticated() ) {
-            $remember_minutes = $this->getAuthData()["remember_minutes"];
-        }
-        $auth_data = self::createAuthData($user_data, $remember_minutes);
+        $auth_data = self::createAuthData($user_data, $exptime);
         $token = \JWT::encode($auth_data, $this->getConfig("auth")["secret"]);
         if ( $is_save ) {
             $this->setAuthData($auth_data);

@@ -8,9 +8,10 @@ parameters:
     db.pass:    ''
     db.name:    dbname
 
-    auth.secure: true
+    auth.secure: false
     auth.relaxed: [localhost, slimapi.local, 127.0.0.1]
     auth.lifetime: 20 minutes
+    auth.maxlifetime: 2 days
     auth.secret: >
         Change This
         Multiple Line String

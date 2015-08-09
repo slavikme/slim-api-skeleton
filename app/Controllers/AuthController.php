@@ -15,29 +15,38 @@ class AuthController extends SlimController {
     }
 
     public function loginAction() {
-        // You can use the authentication data stored in $auth variable
+        // You can use the auth config data stored in $auth variable
         $auth = $this->app->container["settings"]["auth"];
+
+        // Note: There is no point to check whether the user is authenticated, as there is no authentication
+        //       check for this route as defined in the config.yml file under the auth.passthrough parameter.
+
         $request = $this->app->request;
-        $remember = null;
-        if ( $request->isFormData() ) {
+        $max_exptime = strtotime($auth["maxlifetime"]);
+        $default_exptime = strtotime($auth["lifetime"]);
+        $exptime = $default_exptime;
+
+        if ( $request->isFormData() )
+        {
             $username = $request->post("username");
             $password = $request->post("password");
-            $remember = $request->post("remember_minutes", null);
+            $exptime = self::getExpirationTime($request->post("expiration"), $default_exptime, $max_exptime);
         }
-        if ( preg_match("/^application\\/json/i", $request->getContentType()) ) {
+
+        if ( preg_match("/^application\\/json/i", $request->getContentType()) )
+        {
             $json = json_decode($request->getBody(), true);
-            if ( $json !== NULL ) {
+            if ( $json !== NULL )
+            {
                 $username = $json["username"];
                 $password = $json["password"];
-                $remember = $json["remember_minutes"];
+                $exptime = self::getExpirationTime($json["expiration"], $default_exptime, $max_exptime);
             }
         }
+
         if ( empty($username) || empty($password) ) {
             $this->renderUnauthorized();
             return;
-        }
-        if ( !is_numeric($remember) || $remember < 1 ) {
-            $remember = null;
         }
 
         /**
@@ -52,7 +61,8 @@ class AuthController extends SlimController {
             ->execute()
             ->fetch();
 
-        if ( empty($user) ) {
+        if ( empty($user) )
+        {
             $this->renderUnauthorized();
             return;
         }
@@ -62,9 +72,37 @@ class AuthController extends SlimController {
             ->where("id", "=", $user["id"])
             ->execute();
 
-        $this->app->setAuthData(Factory::createAuthData($user), $remember);
+        $this->app->setAuthData(Factory::createAuthData($user, $exptime));
 
         $this->render(200);
+    }
+
+    /**
+     * @param mixed $value
+     * @param int $default
+     * @param int $max
+     * @return int
+     */
+    private static function getExpirationTime($value, $default = 0, $max = 0)
+    {
+        $exptime = $default;
+        $now = time();
+        if ( !empty($value) )
+        {
+            if ( is_string($value) ) {
+                $exptime = strtotime($value);
+            }
+            if ( is_numeric($value) ) {
+                $exptime = $value < $now ? $now + $value : (int)$value;
+            }
+        }
+        if ( !is_numeric($exptime) || $exptime < $now ) {
+            $exptime = $default;
+        }
+        if ( $exptime > $max ) {
+            $exptime = $max;
+        }
+        return $exptime;
     }
 
 }

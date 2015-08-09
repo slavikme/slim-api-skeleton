@@ -6,11 +6,12 @@ A skeleton project based on Slim Framework 2 to start developing API application
 Contributions are welcomed.
 
 ## Implemented
-
+ * Composer create-project functionality
  * Application configuration in a single file
  * Relational Database support
- * Authentication support based on API key with the following user information sources
+ * Authentication support based on API token with the following user information sources
    * From relational database
+ * Customizable API token expiration time with predefined default and maximum values
  * Routing settings in a single file
    * Define an HTTP Method or array of methods
    * Route with parameters
@@ -19,7 +20,6 @@ Contributions are welcomed.
  * Controller classes support
   
 ## TODO
-
  1. Add authentication support based on API key with the following user information sources
    1. From Configuration File
    2. From Big Data/NoSQL records
@@ -35,7 +35,6 @@ In this documentation, I will explain how to make it work on UNIX-based system a
 Note: You can always [run a VM (Virtual Machine) with a Linux](http://www.howtogeek.com/196060/beginner-geek-how-to-create-and-use-virtual-machines/), using a [VirtualBox](https://www.virtualbox.org/) or any [other virtual machine](http://lifehacker.com/5714966/five-best-virtual-machine-applications) to install a Linux OS. And then proceed with this documentation on your newly installed Linux on your VM.
 
 ## Requirements
-
  * **Apache 2.x** (or if you prefer Nginx, you will have to make sure that the Authorization header is passed in to your PHP application as described in the `public/.htaccess` file. Also, you should rewrite everything to point to the `public/app.php` file)
  * **PHP 5.6+**
  * **MySQL 5.5+**
@@ -69,19 +68,19 @@ The request body should be sent as follows:
     {
         "username": "john",
         "password": "Snow123",
-        "remember_minutes": 1440
+        "expiration": "45 minutes"
     }
     
 > Note: JSON format requests must be sent along with the `Content-Type: application/json` header property in the request headers in order to make it work.
     
 ##### Form Format
 
-    username=john&password=Snow123&remember_minutes=1440
+    username=john&password=Snow123&expiration=45%20minutes
     
 ##### Request Parameters
  * **`username`** - The username from the `tbl_user` table (See the [Database - User Table](#user-table) section).
  * **`password`** - The username from the `tbl_user` table (See the [Database - User Table](#user-table) section).
- * **`remember_minutes`** - The number of minutes to create a valid token for. This parameter is optional and may not be sent. If this parameter will not be sent, the default value will be used as defined within the ``auth.lifetime`` property located in ``config/parameters.yml`` file.
+ * **`expiration`** - A date/time string when the token expires (The same value as the PHP [strtotime](http://php.net/manual/function.strtotime.php)() function accepts in its first argument). This parameter is optional and may not be sent. If this parameter will not be sent, the default value will be used as defined within the ``auth.lifetime`` property located in ``config/parameters.yml`` file.
 
 #### Response
 The response depending on the request.
@@ -97,7 +96,7 @@ Otherwise, the authentication should succeed with the response status code 200 a
 
     {
         "error": false,
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNDM5MDQzMDkxLCJyZW1lbWJlciI6bnVsbCwidXNlciI6eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImVhc3Rlci1lZ2ciLCJyb2xlIjoiQURNSU4iLCJuYW1lIjoiQ29uZ3JhdHMsIE5vdyBZb3UgVW5kZXJzdGFuZCBUaGUgSldUIFByb3RvY29sIiwiZW1haWwiOiJnb29kQGpvYi5jb20iLCJzdGF0dXMiOiIxIiwibGFzdGxvZ2luX3RpbWUiOiIyMDE1LTA4LTA2IDE3OjEwOjA0In19.4YHynX_j2mhXLWGgLTHTf6IgY5HwHBIzl8mUqQa8vUw",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNDM5MDQzMDkxLCJleHB0aW1lIjogMTQzOTA0NDI5MSwidXNlciI6eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImVhc3Rlci1lZ2ciLCJyb2xlIjoiQURNSU4iLCJuYW1lIjoiQ29uZ3JhdHMsIE5vdyBZb3UgVW5kZXJzdGFuZCBUaGUgSldUIFByb3RvY29sIiwiZW1haWwiOiJnb29kQGpvYi5jb20iLCJzdGF0dXMiOiIxIiwibGFzdGxvZ2luX3RpbWUiOiIyMDE1LTA4LTA2IDE3OjEwOjA0In19.4YHynX_j2mhXLWGgLTHTf6IgY5HwHBIzl8mUqQa8vUw",
         "status": 200
     }
 
