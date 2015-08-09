@@ -331,6 +331,10 @@ class Factory extends Slim
     {
         parent::__construct();
 
+        $this->response()->header("Access-Control-Allow-Origin", "*");
+        $this->response()->header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        $this->response()->header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization, X-Requested-With");
+
         $this->parseConfig();
         $this->setDefaultView();
         $this->parseMiddlewares();
