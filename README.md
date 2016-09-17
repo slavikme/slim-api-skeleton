@@ -55,6 +55,14 @@ Note: You can always [run a VM (Virtual Machine) with a Linux](http://www.howtog
 ## Usage
 **INCOMPLETE!**
 
+Just call any path defined in the `routes.yml`, with the token received from the [Authentication](#authentication) process below, in the `Authorization` request header along with the phrase `Bearer`.
+For example:
+
+    GET / HTTP/1.1
+    Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0aW1lIjoxNDM5MDQzMDkxLCJleHB0aW1lIjogMTQzOTA0NDI5MSwidXNlciI6eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImVhc3Rlci1lZ2ciLCJyb2xlIjoiQURNSU4iLCJuYW1lIjoiQ29uZ3JhdHMsIE5vdyBZb3UgVW5kZXJzdGFuZCBUaGUgSldUIFByb3RvY29sIiwiZW1haWwiOiJnb29kQGpvYi5jb20iLCJzdGF0dXMiOiIxIiwibGFzdGxvZ2luX3RpbWUiOiIyMDE1LTA4LTA2IDE3OjEwOjA0In19.4YHynX_j2mhXLWGgLTHTf6IgY5HwHBIzl8mUqQa8vUw
+    Host: api.slim.local
+    Connection: close
+
 ### Authentication
 The authentication method implemented in this framework is [JWT (JSON Web Tokens)](http://jwt.io/).  
 A special authentication route has been implemented and is ready to use out of the box.
