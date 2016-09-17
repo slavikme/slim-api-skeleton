@@ -51,14 +51,15 @@ class Factory extends Slim
     /**
      * Create a new or return the current instance
      *
+     * @param string $name
      * @return Factory
      */
-    public static function getInstance()
+    public static function getInstance($name = 'default')
     {
         $trace = debug_backtrace();
         if ( isset($trace[1]) && $trace[1]['class'] == 'Slim\\Slim' )
         {
-            return parent::getInstance();
+            return parent::getInstance($name);
         }
 
         if (self::$instance === 0) {
@@ -232,7 +233,7 @@ class Factory extends Slim
             $methods = isset($route['method']) ? $route['method'] : 'get';
             $path = $route['path'];
             $controller = $route['controller'];
-            $conditions = (array)$route['conditions'];
+            $conditions = (array)(isset($route['conditions'])?$route['conditions']:[]);
 
             foreach ( (array)$methods as $method )
             {

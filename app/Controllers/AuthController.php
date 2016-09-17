@@ -40,7 +40,7 @@ class AuthController extends SlimController {
             {
                 $username = $json["username"];
                 $password = $json["password"];
-                $exptime = self::getExpirationTime($json["expiration"], $default_exptime, $max_exptime);
+                $exptime = self::getExpirationTime(isset($json["expiration"])?$json["expiration"]:null, $default_exptime, $max_exptime);
             }
         }
 
