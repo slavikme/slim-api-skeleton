@@ -9,6 +9,8 @@ use Exception;
 
 class Composer
 {
+    // CLI text behavior options
+    
     const COLOR_YELLOW = '%y';
     const COLOR_GREEN = '%g';
     const COLOR_BLUE = '%b';
@@ -43,6 +45,10 @@ class Composer
 
     const FONT_RESET = '%n';
 
+    /**
+     * 
+     * @param $event
+     */
     public static function postCreateProjectInstall(Event $event)
     {
 //        echo "Would you like to start the configuration process? [yes]: ";
@@ -105,6 +111,12 @@ class Composer
         return 0;
     }
 
+    /**
+     * 
+     * @param $bgColor
+     * @param $textStyle
+     * @param $text
+     */
     public static function outInBox($bgColor, $textStyle, $text)
     {
         $lines = [];
@@ -140,21 +152,38 @@ class Composer
         cli\Streams::line();
     }
 
+    /**
+     * 
+     * @param $color
+     * @param $text
+     */
     private static function outSolid($color, $text)
     {
         cli\Streams::line($color . $text . self::FONT_RESET);
     }
 
+    /**
+     * 
+     * @param $text
+     */
     private static function outSolidGreen($text)
     {
         self::outSolid(self::COLOR_GREEN, $text);
     }
 
+    /**
+     * 
+     * @param $text
+     */
     private static function outSolidYellow($text)
     {
         self::outSolid(self::COLOR_YELLOW, $text);
     }
 
+    /**
+     * 
+     * @param $length
+     */
     private static function generateRandomString($length = 64)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -166,12 +195,18 @@ class Composer
         return $randomString;
     }
 
-    private static function generateSecret($rows = 20, $rowsize = 64, $seperator = "")
+    /**
+     * 
+     * @param $rows
+     * @param $rowsize
+     * @param $separator
+     */
+    private static function generateSecret($rows = 20, $rowsize = 64, $separator = "")
     {
         $lines = [];
         for ( $i = 0; $i < $rows; $i++ ) {
             $lines[] = self::generateRandomString($rowsize);
         }
-        return implode($seperator, $lines);
+        return implode($separator, $lines);
     }
 }
