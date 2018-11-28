@@ -1,9 +1,11 @@
+[![Open Issues](https://img.shields.io/github/issues/slavikme/slim-api-skeleton.svg)](https://github.com/slavikme/slim-api-skeleton/issues) [![Stars on GitHub](https://img.shields.io/github/stars/slavikme/slim-api-skeleton.svg)](https://github.com/slavikme/slim-api-skeleton/stargazers) [![Forks on GitHub](https://img.shields.io/github/forks/slavikme/slim-api-skeleton.svg)](https://github.com/slavikme/slim-api-skeleton/network) [![Sponsor by PayPal](https://img.shields.io/badge/sponsor-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4W82MPH26GN6L&source=url) [![GitHub license](https://img.shields.io/github/license/slavikme/slim-api-skeleton.svg)](https://github.com/slavikme/slim-api-skeleton/blob/master/LICENSE)
+
 # Slim API Skeleton
 
-A skeleton project based on Slim Framework 2 to start developing API application instantly.
+A skeleton project based on Slim Framework 2, which targets for developers to start an API application instantly.
 
-## NOTE: This is an alpha version and in developmnet process
-Contributions are welcomed.
+## NOTE: This is an alpha version and it is currently in a developmnet process
+Contributions are welcomed!
 
 ## Implemented
  * Composer create-project functionality
