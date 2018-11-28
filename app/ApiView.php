@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: webpick
- * Date: 7/14/15
- * Time: 8:03 PM
- */
 
 namespace SlimAPI;
 
@@ -12,6 +6,11 @@ use Slim\Slim;
 
 class ApiView extends \JsonApiView {
 
+    /**
+     * 
+     * @param $status
+     * @param $data
+     */
     public function render($status=200, $data = NULL) {
         $app = Slim::getInstance();
 
